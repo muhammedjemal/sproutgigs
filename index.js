@@ -99,8 +99,8 @@ const pageChat = await browser.newPage();
   }
   console.log("trying to loaded !!!!!! waittttt   ");
 
-  await page.goto(url).catch((error) => throw ('Error navigating to URL in page:', error));
-  await pageChat.goto(urlChat).catch((error) => throw ('Error navigating to URL in pageChat:', error));
+  await page.goto(url).catch((error) => throw ('Error navigating to URL in page: '+ error));
+  await pageChat.goto(urlChat).catch((error) => throw ('Error navigating to URL in pageChat:'+ error));
 
   // await page.goto(url);
   // await pageChat.goto(urlChat);
