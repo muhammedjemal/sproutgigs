@@ -97,11 +97,15 @@ const pageChat = await browser.newPage();
     await page.setCookie(...cookies);
 
   }
+  console.log("trying to loaded !!!!!! waittttt   ");
 
-  await page.goto(url);
-  await pageChat.goto(urlChat);
+  await page.goto(url).catch((error) => console.error('Error navigating to URL in page:', error));
+  await pageChat.goto(urlChat).catch((error) => console.error('Error navigating to URL in pageChat:', error));
 
-  console.log("205   ");
+  // await page.goto(url);
+  // await pageChat.goto(urlChat);
+
+  console.log("both urls loaded !!!!!! successsssss   ");
 
 
   await page.waitForTimeout(15000);
