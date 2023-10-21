@@ -22,6 +22,15 @@ let gptCookies = require('./gpt.json');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
+
+const express = require('express');
+const app = express(); 
+const port =  process.env.PORT || 3000 ; 
+app.get('/', (req, res) => res.send('Welcome To Code Handbook!'));
+app.listen(port, () => console.log(`App listening on port ${port}!`));
+
+
+
 puppeteer.use(StealthPlugin());
 
 const { executablePath } = require('puppeteer');
@@ -464,8 +473,3 @@ bot.on('callback_query', async (query) => {
 // }
 
 console.log('Eco Telegram Bot is running.');
-const express = require('express');
-const app = express(); 
-const port = process.env.PORT || 3000; 
-app.get('/', (req, res) => res.send('Welcome To Code Handbook!'));
-app.listen(port, () => console.log(`App listening on port $ {port}!`));
