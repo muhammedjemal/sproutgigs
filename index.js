@@ -1,4 +1,19 @@
 
+const os = require('os');
+const path = require('path');
+const mkdtempAsync = require('util').promisify(require('fs').mkdtemp);
+const CHROME_PROFILE_PATH = path.join(os.tmpdir(), 'puppeteer_dev_profile-');
+
+// ...
+
+const temporaryUserDataDir = await mkdtempAsync(CHROME_PROFILE_PATH);
+
+// This variable 'userDataDir' will contain the user data directory path.
+const userDataDir = temporaryUserDataDir;
+
+// ...
+
+// Use 'userDataDir' in your code as needed.
 
 
 
@@ -84,6 +99,7 @@ const browser = await puppeteer.launch({
   headless: true, // Change to true for headless mode in production
   executablePath: executablePath(),
   args: ['--disable-infobars'],
+  userDataDir : userDataDir
 });
 
 const page = await browser.newPage();
