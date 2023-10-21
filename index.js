@@ -1,17 +1,23 @@
-
 const os = require('os');
 const path = require('path');
-const mkdtempAsync = require('util').promisify(require('fs').mkdtemp);
+const util = require('util');
+const mkdtempAsync = util.promisify(require('fs').mkdtemp);
 const CHROME_PROFILE_PATH = path.join(os.tmpdir(), 'puppeteer_dev_profile-');
 
-// ...
+async function createTemporaryUserDataDir() {
+  const temporaryUserDataDir = await mkdtempAsync(CHROME_PROFILE_PATH);
+  return temporaryUserDataDir;
+}
 
-const temporaryUserDataDir = await mkdtempAsync(CHROME_PROFILE_PATH);
+// Usage:
+createTemporaryUserDataDir()
+  .then((userDataDir) => {
+    // Now you can use 'userDataDir' in your code.
+  })
+  .catch((error) => {
+    console.error('Error creating temporary user data directory:', error);
+  });
 
-// This variable 'userDataDir' will contain the user data directory path.
-const userDataDir = temporaryUserDataDir;
-
-// ...
 
 // Use 'userDataDir' in your code as needed.
 
