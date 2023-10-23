@@ -23,7 +23,7 @@ RUN mkdir -p /usr/src/app/output
 RUN chmod -R 777 /usr/src/app/output
 
 # Expose the port your Node.js app might run on
-EXPOSE 3000
+EXPOSE 10000
 
 # Start your Node.js application
 CMD [ "node", "index.js" ]
