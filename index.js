@@ -56,33 +56,11 @@ app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 // puppeteer.use(StealthPlugin());
 
-const { executablePath } = require('puppeteer');
+// const { executablePath } = require('puppeteer');
 
 
 
-async function getChromiumExecutablePath() {
-  try {
-    const browser = await puppeteer.launch({ headless: true,
-      args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--single-process",
-        "--no-zygote",
-        
-        ], 
-        executablePath:
-process.env.NODE_ENV === "production"
-? process.env.PUPPETEER_EXECUTABLE_PATH
-: puppeteer.executablePath()
-      });
-    const executablePath = browser.executablePath();
-    await browser.close();
-    return executablePath || '/usr/bin/google-chrome-unstable'; // Set the default path here
-  } catch (error) {
-    console.error('Error while getting Chromium executable path:', error);
-    return '/usr/bin/google-chrome-unstable'; // Set the default path here
-  }
-}
+
 
 const url = 'https://prod.uhrs.playmsn.com/marketplace/app/56505';
 const urlChat = "https://chat.openai.com/c/a9a9ba83-78a3-4113-ae8c-9a703680a476";
@@ -129,14 +107,21 @@ const main = async (passValue, duration, cookies) => {
 
 //   // Set a custom user agent
 //   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36');
-const chromiumPath = await getChromiumExecutablePath();
+// const chromiumPath = await getChromiumExecutablePath();
 
-const browser = await puppeteer.launch({
-  headless: true, // Change to true for headless mode in production
-  executablePath: chromiumPath,
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  userDataDir : userDataDir
-});
+const browser = await puppeteer.launch({ headless: true,
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+        
+        ], 
+        executablePath:
+process.env.NODE_ENV === "production"
+? process.env.PUPPETEER_EXECUTABLE_PATH
+: puppeteer.executablePath()
+      });
 
 const page = await browser.newPage();
 const pageChat = await browser.newPage();
