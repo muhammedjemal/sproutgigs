@@ -32,16 +32,18 @@ createTemporaryUserDataDir()
   const token = '6396653187:AAFNa1GonzGfh2CsYwMx8ycWZqPYPV594vc';
   
   
-const puppeteer = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const puppeteer = require('puppeteer');
+require("dotenv").config();
+
+// const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const Tesseract = require('tesseract.js');
 
 let uhrsCookies = require('./uhrs.json');
 let gptCookies = require('./gpt.json');
 
 
-const cheerio = require('cheerio');
-const axios = require('axios');
+// const cheerio = require('cheerio');
+// const axios = require('axios');
 
 
 const express = require('express');
@@ -52,7 +54,7 @@ app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 
 
-puppeteer.use(StealthPlugin());
+// puppeteer.use(StealthPlugin());
 
 const { executablePath } = require('puppeteer');
 
@@ -60,7 +62,19 @@ const { executablePath } = require('puppeteer');
 
 async function getChromiumExecutablePath() {
   try {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: true,
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+        
+        ], 
+        executablePath:
+process.env.NODE_ENV === "production"
+? process.env.PUPPETEER_EXECUTABLE_PATH
+: puppeteer.executablePath()
+      });
     const executablePath = browser.executablePath();
     await browser.close();
     return executablePath || '/usr/bin/google-chrome-unstable'; // Set the default path here
