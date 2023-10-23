@@ -18,14 +18,12 @@ RUN npm ci
 # Copy the rest of your application files
 COPY . .
 
-# Define the environment variable for the output directory
-ENV OUTPUT_DIR=/mnt/output
-
-# Create the output directory and grant write access
-RUN mkdir -p $OUTPUT_DIR && chmod -R 777 $OUTPUT_DIR
+# Create a directory for output files and grant write access
+RUN mkdir -p /usr/src/app/output
+RUN chmod -R 777 /usr/src/app/output
 
 # Expose the port your Node.js app might run on
-EXPOSE 10000
+EXPOSE 3000
 
 # Start your Node.js application
 CMD [ "node", "index.js" ]
