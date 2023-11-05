@@ -29,7 +29,7 @@ createTemporaryUserDataDir()
   const TelegramBot = require('node-telegram-bot-api');
 
   // Replace 'YOUR_TELEGRAM_BOT_TOKEN' with your actual bot token
-  const token = '6396653187:AAFNa1GonzGfh2CsYwMx8ycWZqPYPV594vc';
+  const token = '6747901220:AAHrEXxkNRLOIyZDGSRFHTQfr0rBcwjCNb4';
   
   
 const puppeteer = require('puppeteer');
@@ -39,11 +39,8 @@ require("dotenv").config();
 const Tesseract = require('tesseract.js');
 
 let uhrsCookies = require('./uhrs.json');
-let gptCookies = require('./gpt.json');
+// let gptCookies = require('./gpt.json');
 
-
-// const cheerio = require('cheerio');
-// const axios = require('axios');
 
 
 const express = require('express');
@@ -53,61 +50,12 @@ app.get('/', (req, res) => res.send('Welcome To Code Handbook!'));
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 
-
-// puppeteer.use(StealthPlugin());
-
-// const { executablePath } = require('puppeteer');
-
-
-
-
-
-const url = 'https://prod.uhrs.playmsn.com/marketplace/app/56505';
-const urlChat = "https://chat.openai.com/c/a9a9ba83-78a3-4113-ae8c-9a703680a476";
-
-
-// const getReady= async()=>{
-//   }
-
-
-
-
-
+const url = 'https://sproutgigs.com/signup.php';
+// const urlChat = "https://chat.openai.com/c/a9a9ba83-78a3-4113-ae8c-9a703680a476";
 
 
 const main = async (passValue, duration, cookies) => {
   try{
-
-
-  // Launch Puppeteer with specific options
-
-// // // checking if headless is true or false
-//   // Get the browser's command line arguments
-//   const browserArgs = browser.process().spawnargs;
-
-//   // Check if the '--headless' argument is present
-//   const isHeadless = browserArgs.includes('--headless');
-
-//   if (isHeadless) {
-//     console.log('Headless mode is enabled.');
-//         // // other way to setview
-// await page.evaluate((width, height) => {
-//   window.innerWidth = width;
-//   window.innerHeight = height; 
-// }, 482, 614);
-//   } else {
-//     console.log('Headless mode is disabled.');
-//     // // other way to setview
-// await page.evaluate((width, height) => {
-//   window.innerWidth = width;
-//   window.innerHeight = height;
-// }, 482, 614);
-
-//   }
-
-//   // Set a custom user agent
-//   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36');
-// const chromiumPath = await getChromiumExecutablePath();
 
 const browser = await puppeteer.launch({ headless: true,
       args: [
@@ -124,9 +72,9 @@ process.env.NODE_ENV === "production"
       });
 
 const page = await browser.newPage();
-const pageChat = await browser.newPage();
+// const pageChat = await browser.newPage();
 await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
-await pageChat.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
+// await pageChat.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
 
 
 
@@ -139,7 +87,7 @@ await pageChat.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 
   }
   console.log("trying to loaded !!!!!! waittttt   ");
   await page.goto(url).catch((error) => console.error(`Error navigating to URL: ${error}`));
-  await pageChat.goto(urlChat).catch((error) => console.error(`Error navigating to URL: ${error}`));
+  // await pageChat.goto(urlChat).catch((error) => console.error(`Error navigating to URL: ${error}`));
 
   // await page.goto(url);
   // await pageChat.goto(urlChat);
@@ -148,252 +96,58 @@ await pageChat.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 
 
 
   await page.waitForTimeout(15000);
-  await pageChat.keyboard.press('Space');
-
-// await getReady();
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const captureData = async ()=>{
-  // // screen shot toloka portion but unwanted stuff is included in the result working!
-    // Define the dimensions of the capture area in pixels
-    const captureWidth = 510; // 1/3 of the width
-    const captureHeight = 260; // Height above half the viewport
-    const captureX = 0; // Starting from the very left
-    const captureY = 90; // Pixels below the upper margin
   
-    // Define the clip region
-    const clip = { x: captureX, y: captureY, width: captureWidth, height: captureHeight };
-  
-    // Capture a screenshot of the specified region
-    await page.screenshot({ path: 'screenshot.png', clip });
-  
-    // Use Tesseract.js to perform OCR on the screenshot
-    const result = await Tesseract.recognize('screenshot.png', 'eng');
-  
-    // console.log(result.data.text);
-    var resultData = await result.data.text;
-    return resultData;
-  
-  };
 
 
-    let neededData = await captureData(page, pageChat); // captureData returns the captured portion's text no more
-    console.log("261   neededData:" +neededData);
-    
-    if(neededData.includes('Marketplace\nAd') || neededData.includes('on Or 0') ) { 
-      const handleOverley = async  ()=>{
-        // try it three times and close it
-    
-    
-    
-        //   await page.keyboard.press('Tab');
-          await page.keyboard.press('Tab');
-          // await page.waitForTimeout(1000);
-    
-          await page.keyboard.press('Tab');
-          // await page.waitForTimeout(1000);
-    
-          await page.keyboard.press('Tab');
-          // await page.waitForTimeout(1000);
-    
-          await page.keyboard.press('Tab');
-          // await page.waitForTimeout(1000);
-    
-          await page.keyboard.press('Tab');
-          // await page.waitForTimeout(1000);
-    
-    
-        //   //select the submit button
-          await page.keyboard.press('Space');
-        // await page.waitForTimeout(10000);
-        neededData = await captureData();
-        let msg = "i have removed the overley and captured the text again..";
-        console.log(msg);
-    
-        }
-    
-      await handleOverley() }; // handleOverly just removes that overly and re-captures and saves into neededData
+  ///////////// *************************////////////
 
-    if(neededData.includes('UHRS is a crowdsourcing platform')){ 
-      let msg = "UHRS session ended please copy and paste a brand new one.";
-      console.log(msg);
-      throw (msg);
-    };
-    if (neededData.includes("There are no HITs available.")){
-      let msg = "There are no HITs available.";
-      console.log(msg);
-      return(msg);
-    
-    };
+await page.evaluate(()=>{
+  document.querySelector("#fullname").value="Jemal Muhammed";
+  document.querySelector("#email").value="redietmasresha5@gmail.com";
+  document.querySelector("#password").value="rediet@masresha1";
+  document.querySelector("#confirmpassword").value="rediet@masresha1";
+  document.querySelector("#nickname").value="redietmasresha";
 
-    // the data is ready to be searched on gpt now..
-// const repeat = async (page, pageChat)=>{
-//     let neededData = await captureData();
-//     console.log("261   neededData:" +neededData);
-    
-    
-//     const processData = async ()=>{
-//     neededData = " = " + neededData;
-//     // Check if "User Search Term:" is present in the text
-//     if (neededData.includes("User Search Term:")) {
-//       // Split the text by "User Search Term:" 
-//       const parts = neededData.split("User Search Term:");
-    
-//       // Keep only the second part (after "User Search Term:") and trim any leading/trailing whitespace
-//       neededData = "User Search Term: " + parts[1].trim();
-//     } else {
-//       neededData = "User Search Term: " + neededData;
-//     }
-    
-//     // Check if "For Guideline:" is present in the text
-//     if (neededData.includes("For Guideline:")) {
-//       // Split the text by "For Guideline:"
-//       const parts = neededData.split("For Guideline:");
-    
-//       // Keep only the first part (before "For Guideline:") and trim any leading/trailing whitespace
-//       neededData = parts[0].trim();
-//     }
-       
-//     // Replace line breaks with spaces
-//     neededData = neededData.replace(/\n/g, ' ');
-    
-//     // Add a single line break at the end
-//     neededData += '. [info: send/return to me only the word Category followed by one space and its category number because i need no definition and/or no more than such letters! also make sure you are always/everywhere/ whenever in temprature of 0.0]';
-    
-//     // Add a single line break at the end
-//     neededData += '\n';
+  // Select the span element by its ID or another suitable selector
+  const countrySpan = document.getElementById("select2-countrycode-container");
+  // Check if the element is found before changing its content
+  if (countrySpan) {
+    // Change the text content to a new country name, for example, "New Country"
+    countrySpan.textContent = "Singapore";
+  }
+  document.querySelector("#profileTypeWorker").click();
+  document.querySelector("#tos").click();
+  document.querySelector("#opt-in").click();
 
-//     return neededData;
-    
-//   }
-//     neededData = await processData();
-    
-    
-    
-    
-//     if (neededData !== "Please remove the overley first." && neededData !== "UHRS session ended please copy and paste new one." && neededData !== "There are no HITs available." ){
-    
-//     var getLastResultTxt = await pageChat.evaluate(() => {
-//       const resultViews = document.querySelectorAll(".flex.flex-grow.flex-col.gap-3.max-w-full");
-//       const lastResult = resultViews[resultViews.length - 1];
-//       try{
-//         return lastResult.textContent;
-
-//       }catch{
-//         console.log("cannot get the last result of gpt.");
-//         return "cannot get the last result of gpt.";
-//       }
-//     });
-    
-    
-//     // Call the function to get the result
-//     console.log("Last Result Text bfr:", getLastResultTxt);
-    
-//     // Find the input box on the destination page and paste the copied content
-//       // await pageChat.type('#prompt-textarea', neededData);
-//       let textToPaste = neededData;
-//       await page.evaluate((textToPaste) => {
-//         const inputElement = document.querySelector('#prompt-textarea');
-//         if (inputElement) {
-//           inputElement.value = textToPaste;
-//         }
-//       }, textToPaste);
-
-
-//       await page.waitForTimeout(25000);
-    
-//       console.log("Last Result Text aftrrrr: ", getLastResultTxt);
-    
-    
-//     let keyIndex;
-//     if (getLastResultTxt === "Category 1" || getLastResultTxt === "1") {
-//       keyIndex = 0
-//       console.log("in true conditionnnn")
-//     } else if (getLastResultTxt === "Category 2" || getLastResultTxt === "2") {
-//       keyIndex = 1
-//       console.log("in true conditionnnn")
-//     } else if (getLastResultTxt === "Category 3" || getLastResultTxt === "3") {
-//       keyIndex = 2
-//       console.log("in true conditionnnn")
-//     } else if (getLastResultTxt === "Category 4" || getLastResultTxt === "4") {
-//       keyIndex = 3
-//       console.log("in true conditionnnn")
-//     } else if (getLastResultTxt === "Category 5" || getLastResultTxt === "5") {
-//       keyIndex = 4
-//       console.log("in true conditionnnn")
-//     } else {
-//       // Do something else
-//       console.log("Bad categorization from GPT");
-//       return "Bad categorization from GPT";
-//     }
-    
-//     console.log('keyIndexxxxxxx', keyIndex)
-    
-//     await page.waitForTimeout(5000);
-
-//     const pressBtn = async (page=page, keyIndex=keyIndex) => {
-//       for (let i = 0; i < 1 + 8; i++) {
-//         // get the first radio button
-//         await page.keyboard.press('Tab');
-//       }
-      
-//       // select the first button
-//       await page.keyboard.press('Space');
-       
-//       // navigate down to get the required button
-//       for (let x = 0; x < keyIndex; x++) {
-//         await page.keyboard.press('ArrowDown');
-//       }
-//     }
-      
-//     await pressBtn(page, keyIndex );
-    
-//     const submit = async ()=>{
-//       // navigate to submit button
-//       await page.waitForTimeout(10000);
-
-//       await page.keyboard.press('Tab');
-//       await page.keyboard.press('Tab');
-//       //select the submit button
-//       // await page.keyboard.press('Space');
-
-//       return "you've successfully reached the last step of submitting.."
-
-//       // wait some time for the next work
-//       // await page.waitForTimeout(1000);
-
-
-//     }
-
-
-    
-//     await submit();
-    
-//     // get data
-//     // processdata
-//     // clickradiobtn
-//     // submit
-//   }
-//   return `Success..\n the data is:\n ${neededData} & the result:\n ${getLastResultTxt}`
-// }
-// if (passValue.duration === "forever"){
-//   while(true){
-//     await repeat(page, pageChat);
-//     await page.waitForTimeout(2000);
-
-// }
-// } else if (passValue.duration === "once"){
-//   return await repeat(page, pageChat);
-
-// }else{
-//   return await repeat(page, pageChat);
-
-// }
+  // // i can use optionally the following two lines but not wanted to do so :(
+  // document.querySelector("button[type='submit']").click();
+  // bodyText = document.querySelector("body").innerText;
 
 
 
+})
+
+// // i can use this way :) to get elements on 'page' using #CSS selector and manipulate them without page.evaluate but "page.$"
+let submitBtn = await page.$("button[type='submit']");
+await submitBtn.click();
+
+// Wait for navigation to the new page to complete because of click triggered to load or fetch new page
+await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+// Now that the new page has loaded, get the body text       *********** tip here! use page.evaluate only if i have "document.sth" otherwise if i only need to select an element in (any) page use "page.&" or pageChat.&" which follows simple parenthesis with css selector like jQuery
+const bodyText = await page.evaluate(() => {
+  return document.querySelector("body").innerText;
+});
+
+console.log(bodyText);
+return (bodyText);
+
+
+
+
+
+
+///////////// *************************////////////
 
 
 
